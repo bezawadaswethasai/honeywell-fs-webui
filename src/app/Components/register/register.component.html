@@ -1,0 +1,37 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header>
+  <form class="example-form" >
+  <mat-card-content>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="User Id" id="userId" name="username" [(ngModel)]="inputData.userId" required>
+    </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Username" id="username" name="username" [(ngModel)]="inputData.username" required>
+          </mat-form-field>
+  <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email"  id="email" name="email" [(ngModel)]="inputData.email" required>
+          </mat-form-field>
+  <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" type="password" id="password" name="password" [(ngModel)]="inputData.password" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="MobileNo" id ="mobileNo" name ="mobileNo" [(ngModel)]="inputData.mobileNo" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Address" id ="address" name ="address" [(ngModel)]="inputData.address" required >
+          </mat-form-field>
+  <mat-form-field class="example-full-width">
+            <mat-label>Choose a role...</mat-label>
+            <mat-select>
+              <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  </mat-card-content>
+  <button mat-stroked-button color="accent" class="btn-block" (click)="PostData(inputData)">Register</button>
+  </form>
+    </mat-card>
+  </div>
