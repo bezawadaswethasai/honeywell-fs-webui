@@ -33,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {AgmCoreModule} from '@agm/core';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
+import { SidebarComponent } from './Components/sidebar/sidebar.component';
 
 
 
@@ -44,7 +45,8 @@ import { timeout } from 'rxjs';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

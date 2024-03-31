@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http'
 import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 
 
@@ -9,6 +10,9 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HoneywellService {
+  private responseDataSubject = new BehaviorSubject<any>(null);
+  responseData$ = this.responseDataSubject.asObservable();
+
 
   responseData: any;
 
@@ -21,6 +25,7 @@ export class HoneywellService {
         'Content-Type': 'application/json'
     })
 }
+  setResponse: any;
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +39,15 @@ export class HoneywellService {
   // getPosts(): Observable<any> {
   //   return this.http.get('http://localhost:3000/posts');
   // }
+
+  getData(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/data`);
+  }
+
+  // Example method to post data to API
+  postData(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/data`, data);
+  }
 
   setResponseData(data: any): void {
     this.responseData = data;
