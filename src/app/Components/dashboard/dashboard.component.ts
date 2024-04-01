@@ -8,7 +8,7 @@ import { MouseEvent } from '@agm/core';
 import { AuthService } from 'src/app/auth.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { google } from '@agm/core/services/google-maps-types';
-import {FormGroup, FormControl,FormBuilder} from '@angular/forms';
+import {FormGroup, FormControl,FormBuilder,Validators} from '@angular/forms';
 import { HoneywellService } from 'src/app/Services/honeywell.service';
 
 
@@ -62,8 +62,12 @@ export class DashboardComponent implements OnInit  {
   responseData: any;
   
   @ViewChild('dialogTemplate') dialogTemplate: TemplateRef<any>;
-
-  options: string[] = ['Option 1', 'Option 2', 'Option 3'];
+  selectedZipCode: any =['']; 
+  selectedRegion:string='';
+  fromDate!: Date;
+  toDate!: Date;
+ zipCodes: string[] = [];
+  regions: string[] = [];
    chart:any;
    barchart : any;
 
@@ -133,13 +137,18 @@ export class DashboardComponent implements OnInit  {
   
   
   ngOnInit() {
-    this.fetchData();
+    this.honeywellservice.getData();
+    //this.honeywellservice.sendDataToBackend(data);
+   
     this.form = this.formBuilder.group({
-      city: [''],
-      zipCodes: [[]],
-      start: [''],
-      end: ['']
+      selectedRegion: ['', Validators.required],
+      selectedZipCode: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
     });
+
+   
+
 
     // selectCity(city: string): void {
     //   this.form.patchValue({ city });
@@ -353,18 +362,42 @@ export class DashboardComponent implements OnInit  {
  
 }
  
+onSubmit() {
+  if (this.form?.valid) {
+    // Form is valid, perform form submission or other actions
+    console.log('Form submitted successfully');
+  } else {
+    // Form is invalid or not initialized
+  }
+}
+
+clearForm() {
+  this.form?.reset();
+}
+
   
 fetchData(): void {
-  this.honeywellservice.getData().subscribe(
-    (data) => {
-      this.responseData = data;
-      // Optionally, you can store the response in a centralized location in the service
-      this.honeywellservice.setResponse(data);
-    },
-    (error) => {
-      console.error('Error fetching data:', error);
-    }
-  );
+
+  this.honeywellservice.getData().subscribe(response => {
+    this.regions = [response.departmentDetails.region]; // Assuming region is a single value
+    this.zipCodes = response.departmentDetails.zipCode;
+   // Assumi
+  });
+
+}
+
+sendDataToBackend() {
+  const data = {
+      zipCode: this.selectedZipCode,
+      region: this.selectedRegion,
+      fromDate: this.fromDate,
+      toDate: this.toDate
+  };
+
+  this.honeywellservice.sendDataToBackend(this.selectedZipCode, this.selectedRegion, this.fromDate, this.toDate).subscribe(response => {
+      console.log('Response from backend:', response);
+      console.log(this.fromDate,this.toDate);
+  });
 }
   
   clickedMarker(label: string, index: number) {

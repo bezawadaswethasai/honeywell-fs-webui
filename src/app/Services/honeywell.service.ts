@@ -19,6 +19,7 @@ export class HoneywellService {
 
   
   private baseUrl = 'https://localhost:7094/api/Registration';
+  private apiUrl = 'https://localhost:44388/api/GoogleMaps/GoogleMaps';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -44,6 +45,10 @@ export class HoneywellService {
     return this.http.get<any>(`${this.baseUrl}/data`);
   }
 
+  sendDataToBackend(zipCode: string, region: string, fromDate: Date, toDate: Date): Observable<any> {
+    const data = { zipCode, region, fromDate, toDate }; // Include fromDate and toDate in the data
+    return this.http.post<any>(this.apiUrl, data);
+  }
   // Example method to post data to API
   postData(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/data`, data);
