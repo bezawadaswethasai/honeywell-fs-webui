@@ -1,4 +1,4 @@
-import { Component , OnInit } from '@angular/core';
+import { Component , OnInit ,Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
@@ -11,7 +11,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+ loginresponse :any;
+
   loginForm!: FormGroup;
+  result=[]
  
   private formSubmitAttempt : boolean | undefined
   form: any;
@@ -61,12 +65,12 @@ export class LoginComponent implements OnInit {
           response => {
             let result = response;
             const department = response.department;
-          
+            this.authService.setloginresponse(response.departmentDetails);
             // this.authService.setUser(response)
             // const department = this.authService.getUserDepartment();
             // sessionStorage.setItem('department', department);
             
-            // this.navigateToDepartmentPage(department);
+            this.navigateToDepartmentPage(department);
             
             //alert('Hello:response.department')
             this.toastr.success(response.message, 'Success',{timeOut : 3000});
@@ -92,9 +96,9 @@ export class LoginComponent implements OnInit {
 }
 
 navigateToDepartmentPage(department: string): void {
-  
+console.log('hi', department)  
   switch(department) {
-    case 'AHJ':
+    case 'Fire':
       this.router.navigate(['/']);
       break;
     case 'Firemarshall':

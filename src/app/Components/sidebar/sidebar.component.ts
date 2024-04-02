@@ -1,5 +1,5 @@
 import { Component , Output,EventEmitter } from '@angular/core';
-
+import { HoneywellService } from 'src/app/Services/honeywell.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -7,9 +7,11 @@ import { Component , Output,EventEmitter } from '@angular/core';
 })
 export class SidebarComponent {
 
-  @Output() incidentTypeSelected = new EventEmitter<string>();
+  constructor(private honeywellService :HoneywellService){}
 
-  showIncidents(incidentType: string) {
-    this.incidentTypeSelected.emit(incidentType);
+  fireDepartement() {
+    this.honeywellService.fireStation.emit(true);
   }
+
+  
 }

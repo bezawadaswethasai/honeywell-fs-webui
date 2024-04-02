@@ -38,21 +38,38 @@ export interface Tile {
 
 
 
-
-interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
-	draggable: boolean;
-}
-
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit  {
+  public lat = 51.678418;public lng = 7.809007;
+public origin: any;public destination: any
+
+  latitude = 51.678418;
+  longitude = 7.809007;
+  zoom = 12;
+  
+ gmapDetails:any;
+ fireDepartementdetailslat:any={}
+ fireDepartementdetailslng:any={}
+ fireDepartementdetails:any=[{
+  "latitude": this.fireDepartementdetailslat[0],
+  "longitude": this.fireDepartementdetailslng[0],
+  "isActive": true,
+  "locationType": "Location",
+  "zipCode": "560100"
+ },
+ {
+  "latitude": "51.673858",
+  "longitude": "7.815982",
+  "isActive": true,
+  "locationType": "Location",
+  "zipCode": "560100"
+ }
+]
+
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -62,12 +79,12 @@ export class DashboardComponent implements OnInit  {
   responseData: any;
   
   @ViewChild('dialogTemplate') dialogTemplate: TemplateRef<any>;
-  selectedZipCode: any =['']; 
-  selectedRegion:string='';
+  selectedZipCode: string[]=[]; 
+  selectedRegion:string[]=[];
   fromDate!: Date;
   toDate!: Date;
- zipCodes: string[] = [];
-  regions: string[] = [];
+  zipCodes = [  ["99501"] ,["99502"]];
+  regions= [["Alaska"],["Arizona"],["Arkansas"]];
    chart:any;
    barchart : any;
 
@@ -78,15 +95,17 @@ export class DashboardComponent implements OnInit  {
 
 //  mapType = 'roadmap';
   // google maps zoom level
-  zoom: number = 8;
+  //zoom: number = 8;
   
   // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
-  incidents: { latitude: number, longitude: number }[] = [];
+  // lat: number = 51.673858;
+  // lng: number = 7.815982;
+  
+  //incidents: { latitude: number, longitude: number }[] = [];
   //mapType = 'satellite';
 
-  
+
+
 
  
  
@@ -109,6 +128,7 @@ export class DashboardComponent implements OnInit  {
   displayedColumns: string[] = ['position', 'name', ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   apiData: any;
+  loginResponse: any;
 
   // applyFilter(event: Event) {
   //   const filterValue = (event.target as HTMLInputElement).value;
@@ -137,7 +157,24 @@ export class DashboardComponent implements OnInit  {
   
   
   ngOnInit() {
-    this.honeywellservice.getData();
+
+    this.honeywellservice.fireStation.subscribe((Response)=>{
+      if(Response){
+        this.fireDepartementdetails = this.gmapDetails.locations.fireDepartment
+        this.fireDepartementdetailslat = this.gmapDetails.locations.fireDepartment[0].latitude
+        this.fireDepartementdetailslng = this.gmapDetails.locations.fireDepartment[0].longitude
+        console.log('FireIncident',this.fireDepartementdetails)
+         console.log('latitude',this.fireDepartementdetailslat)
+         this.origin = { lat: 51.678418, lng: 7.815982 };this.destination = { lat: 51.678418, lng: 7.815982 };
+         console.log('Origin:', this.origin);
+         console.log('Destination:', this.destination);
+      }
+    })
+
+  const regionzipcodeDetails = this.authService.getloginresponse();
+
+  console.log(regionzipcodeDetails);
+    //this.honeywellservice.getData();
     //this.honeywellservice.sendDataToBackend(data);
    
     this.form = this.formBuilder.group({
@@ -361,6 +398,8 @@ export class DashboardComponent implements OnInit  {
   
  
 }
+
+
  
 onSubmit() {
   if (this.form?.valid) {
@@ -376,17 +415,9 @@ clearForm() {
 }
 
   
-fetchData(): void {
 
-  this.honeywellservice.getData().subscribe(response => {
-    this.regions = [response.departmentDetails.region]; // Assuming region is a single value
-    this.zipCodes = response.departmentDetails.zipCode;
-   // Assumi
-  });
 
-}
-
-sendDataToBackend() {
+showIncidents() {
   const data = {
       zipCode: this.selectedZipCode,
       region: this.selectedRegion,
@@ -394,61 +425,17 @@ sendDataToBackend() {
       toDate: this.toDate
   };
 
-  this.honeywellservice.sendDataToBackend(this.selectedZipCode, this.selectedRegion, this.fromDate, this.toDate).subscribe(response => {
-      console.log('Response from backend:', response);
+  this.honeywellservice.getIncident(data).subscribe(response => {
+     this.gmapDetails = response
+      console.log('Response from backend:', this.gmapDetails);
       console.log(this.fromDate,this.toDate);
   });
 }
   
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
-  }
-  
-  mapClicked($event: MouseEvent) {
-    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
-      draggable: true
-    });
-  }
-  
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
-  
-  markers: marker[] = [
-	  {
-		  lat: 51.673858,
-		  lng: 7.815982,
-		  label: 'A',
-		  draggable: true
-	  },
-	  {
-		  lat: 51.373858,
-		  lng: 7.215982,
-		  label: 'B',
-		  draggable: false
-	  },
-	  {
-		  lat: 51.723858,
-		  lng: 7.895982,
-		  label: 'C',
-		  draggable: true
-	  },
-    
-  ]
-
-  showIncidents(incidentType: string) {
-    // Add logic to fetch incident locations for the selected type and display markers on the map
-    this.incidents = [
-      { latitude: 51.678418, longitude: 7.809007 }, // Example incident location
-      // Add more incident locations as needed
-    ];
-
-
-   
 
   
-  }
+ 
+
+ 
 
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable ,EventEmitter} from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http'
 import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -12,14 +12,15 @@ import { BehaviorSubject } from 'rxjs';
 export class HoneywellService {
   private responseDataSubject = new BehaviorSubject<any>(null);
   responseData$ = this.responseDataSubject.asObservable();
-
+ incidentTypeSelected = new EventEmitter<string>();
+  fireStation = new EventEmitter();
 
   responseData: any;
 
 
   
   private baseUrl = 'https://localhost:7094/api/Registration';
-  private apiUrl = 'https://localhost:44388/api/GoogleMaps/GoogleMaps';
+  private mapserviceUrl = 'https://localhost:44388/api/GoogleMaps/GoogleMaps';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -45,9 +46,14 @@ export class HoneywellService {
     return this.http.get<any>(`${this.baseUrl}/data`);
   }
 
-  sendDataToBackend(zipCode: string, region: string, fromDate: Date, toDate: Date): Observable<any> {
+  getIncident(data:any): Observable<any> {
+    
+    return this.http.post<any>(this.mapserviceUrl, data);
+  }
+
+  showIncidents(zipCode: string, region: string, fromDate: Date, toDate: Date): Observable<any> {
     const data = { zipCode, region, fromDate, toDate }; // Include fromDate and toDate in the data
-    return this.http.post<any>(this.apiUrl, data);
+    return this.http.post<any>(this.mapserviceUrl, data);
   }
   // Example method to post data to API
   postData(data: any): Observable<any> {
