@@ -34,6 +34,7 @@ import {AgmCoreModule} from '@agm/core';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
+import { NavigationComponent } from './Components/navigation/navigation.component';
 
 
 
@@ -46,7 +47,8 @@ import { SidebarComponent } from './Components/sidebar/sidebar.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    SidebarComponent
+    SidebarComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

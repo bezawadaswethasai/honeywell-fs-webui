@@ -13,7 +13,7 @@ export class HoneywellService {
   private responseDataSubject = new BehaviorSubject<any>(null);
   responseData$ = this.responseDataSubject.asObservable();
  incidentTypeSelected = new EventEmitter<string>();
-  fireStation = new EventEmitter();
+  fireStation = new EventEmitter<boolean>();
 
   responseData: any;
 

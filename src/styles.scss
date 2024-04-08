@@ -2,6 +2,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -40,11 +41,11 @@ $fis-honeywell-theme: mat.define-dark-theme((
 
  body {
  margin: 0;
- font-family: Roboto, "Helvetica Neue", sans-serif;
+ font-family: Arial Rounded MT Bold;
  min-height: 100vh;
   color: #e2e2e2;
   background-color: #212121;
-  overflow-y: hidden;
+  //overflow-y: hidden;
  }
 
  $container-max-widths: (

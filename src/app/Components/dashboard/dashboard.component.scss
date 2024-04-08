@@ -1,94 +1,92 @@
-.example-spacer {
-    flex: 1 1 auto;
-  }
+/* styles.css */
+//@import "~bootstrap/dist/css/bootstrap.min.css";
 
-  .mat-mdc-form-field 
 
- {
-    margin: 2px;
-  
-   
- }
 
- .mat-select {
-  border-radius: 0; /* Set border-radius to 0 to make it rectangular */
-  min-width: 150px; /* Adjust width as needed */
+
+.sidebar{
+  float: left;
 }
 
-/* Style the outline appearance */
-.mat-form-field-appearance-outline .mat-form-field-wrapper {
-  border-radius: 0; /* Match the border-radius of mat-select */
+.lablestyles{
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+}
+
+.dropdown-toggle{
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  color: #525252;
+  background-color: #fff;
+  border: 1px solid #525252;
+}
+.dropdown-container {
+  padding: 10px;
+}
+.checkbox {
+  margin-bottom: 5px;
+}
+
+agm-map {
+  //height: 300px;
+  //display: list-item;
+  height: 100vh;
+  margin: 10px;
+}
+
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: -12px;
+  //padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure the top bar appears above the map */
+}
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Set the desired height for the map */
 }
 
 
-  
-//   .example-card {
-//     max-width: 200px;
-//     margin-bottom: 8px;
-//     height: 100px;
-//     display: flex; /* Use flexbox layout */
-//     justify-content: space-between; 
-//   }
+* {
+  font-family: Lato;
+}
 
-  
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(5, 2fr); /* Five columns with equal width */
-    gap: 10px; /* Optional: add gap between grid items */
-    //height: 100px;
-  }
-  .internalMatGrid{  border:1px solid #fefefe; min-width:100%;}
+a {
+  color: darkblue;
+}
 
-  
-  
+/* 
+* Always set the map height explicitly to define the size of the div element
+* that contains the map. 
+*/
+#map {
+height: 100%;
+}
 
-  // .example-card{
-  //   background-color: rgba(228, 212, 224, 0.933);
-  // }
+/* 
+* Optional: Makes the sample page fill the window. 
+*/
+html,
+body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+.addresszip{
+color: black;
+}
 
-  .mat-header-cell{
-    background-color: aqua;
-  }
-
-  .modal {
-    //display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-  }
-  
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .agm-map 
-  { 
-    height: 100%; 
-    width:100%
-  }
-  
-  
-  
+.custom-line-height{
+line-height: 0.2;
+}

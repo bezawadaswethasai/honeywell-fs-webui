@@ -1,27 +1,8 @@
 <div class="container-fluid col col-lg-12">
   <div class="row">
-    <nav class="navbar navbar-dark bg-dark">
-      <span class="navbar-brand h1 m-2" style="color: orangered;">Honeywell</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <!-- <mat-icon matBadge="6" matBadgeColor="warn">email</mat-icon> -->
-        <i class="fas fa-envelope"></i> 
-         <!-- <span class="badge badge-light">3</span> -->
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <i class="bi bi-bell"></i>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <i class="bi bi-person"></i>
-      </button>
-      <small>Welcome back <br>
-<!-- 
-    {{response.firstname}}{{response.lastname}} -->
-  </small>
-    <i class="bi bi-caret-down-fill"></i>
-    </nav>
-  </div>
-  <div class="container-fluid ">
+  <app-navigation></app-navigation>
+</div>
+  <div class="container-fluid-row" >
     <div class="row ">
     <div class=" col-12 col-lg-1 " style="padding-left: 0px;">
       <div class="sidebar">
@@ -29,83 +10,134 @@
         <app-sidebar></app-sidebar>
        </div>
     </div>
-    <div class=" col-12 col-lg-11" style="margin-left: -60px;width: 96%;">
-      <form (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col col-sm-2">
-            <div class="dropdown">
-              <label class="labelstyles">City</label><br>
-              <select class="form-select" [(ngModel)]="selectedRegion" name="selectedRegion">
-                <option *ngFor="let region of regions" [ngValue]="region">{{ region }}</option>
-              </select>
-              
-            </div>
-          </div>
-          <div class="col col-sm-2">
-            <div class="dropdown">
-                <label class="labelstyles">Zip Code</label><br>
-                <select class="form-select" [(ngModel)]="selectedZipCode" name="selectedZipCode">
-                    <option *ngFor="let zipCode of zipCodes" [ngValue]="zipCode">{{ zipCode }}</option>
-                </select>
-            </div>
-        </div>
-         
-      
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>Enter a date range</mat-label>
-              <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-                <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="fromDate" name="fromDate">
-                <input matEndDate formControlName="end" placeholder="End date" [(ngModel)]="toDate" name="toDate">
-              </mat-date-range-input>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker>
-                <mat-date-range-picker-actions>
-                  <button mat-button matDateRangePickerCancel>Cancel</button>
-                  <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
-                </mat-date-range-picker-actions>
-              </mat-date-range-picker>
-            
-              <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-              <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-            </mat-form-field>
-            <!-- (click)="sendDataToBackend()" -->
-            <button type="submit" class="btn btn-primary" (click)="showIncidents()">Apply</button>
-            <button type="submit" class="btn btn-secondary"  (click)="clearForm()">Clear</button>
-          </div>
-        </div>
-      </form>
-      
-      
+    <div class=" col-12 col-lg-11 " >
       <div class="row">
-        <div class="col col-lg-6">
-          <!-- <agm-map class="agm-map "
-      [latitude]="lat" 
-      [longitude]="lng" 
-      [mapTypeId]="mapType"> 
-    </agm-map>  -->
-    
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-      <!-- <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker> -->
-      <agm-marker [latitude]="origin" [longitude]="origin"></agm-marker>
-
-  <!-- Binding destination -->
-  <agm-marker [latitude]="destination" [longitude]="destination"></agm-marker>
-      
-    </agm-map>
-
-   
+        <div class="col">
+          <h6>Dashboard</h6>
+          <h4 class="custom-line-height"><b>Fire Department </b></h4>
+          <sub class="custom-line-height">Seattle , WA , 98104-2618</sub><br>
+          <sub class="custom-line-height">FDID: 17M15</sub>
         </div>
-        <div class="col col-lg-6">
-         
+        <div class="col d-flex align-items-center justify-content-end">
+          <!-- Dropdown goes here -->
+          <div class="col col-sm-4" style="padding: 10px;">
+          <div class="dropdown">
+            <label class="labelstyles">All Battalions</label>
+            <select class="form-select" [(ngModel)]="selectedRegion" name="selectedRegion"  >
+              <option *ngFor="let region of regions" [ngValue]="region">{{ region }}</option>
+            </select>
+            
+          </div>
+        </div>
+        
+        <div class="col col-sm-4">
+          <div class="dropdown">
+            <label class="labelstyles">Zip Code</label>
+            <select class="form-select" [(ngModel)]="selectedZipCode" name="selectedZipCode">
+                <option *ngFor="let zipCode of zipCodes" [ngValue]="zipCode">{{ zipCode }}</option>
+            </select>
         </div>
       </div>
+      <div class="col col-sm-2" style="margin-top: 15px;">
+        <i class="bi bi-question-circle-fill p-2 mt-2" style="color:#0071B3"></i>
+        <a href="">HELP</a>
+      </div>
+      
+        </div>
+      </div>
+      <hr>
+      <div class="row ">
+        <div class=" col col-sm-auto">
+        <p>AT A GLANCE</p>
+      </div>
+      <div class=" col col-sm-auto" style="margin-top: -5px;">
+          <select class="form-select form-select-sm" style="cursor: pointer;" aria-label="table select" [(ngModel)]="selectedYear" (ngModelChange)="selectYear($event)">
+            <option value="" disabled>This Year</option>
+            <option *ngFor="let plan of years" [ngValue]="plan">{{ plan }}</option>
+        </select>
+       
+      </div>
+      
+      </div>
+      <div class="row ">
+        <div class=" col col-sm-9">
+          <div class="map-container">
+            <div class="top-bar">
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">. 365  Incidents</a>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <!-- Content on the left side of the navbar -->
+                  <ul class="navbar-nav mr-auto">
+                    <!-- You can add additional links or content here -->
+                  </ul>
+                  <div class="col d-flex align-items-center justify-content-end"  style="margin-right: 10%;">
+                  <!-- Content on the right side of the navbar -->
+                    <!-- checkbox-dropdown.component.html -->
+                    <div class="dropdown" style="width: auto;" [class.show]="isDropdownOpen" (click)="toggleDropdown()">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown button
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-container">
+                          <div class="form-check" *ngFor="let item of dropdownList" >
+                            <input class="form-check-input" type="checkbox" [id]="'checkbox_' + item.id" [ngModel]="item.selected" (ngModelChange)="onCheckboxChange($event, item)">
+                            <label class="form-check-label" [for]="'checkbox_' + item.id">{{item.itemName}}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                </div>
+                  <!-- Additional content -->
+                 
+                </div>
+              </nav>
+              
+            </div>
+          <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeId]="selectedMapType">
+            <div *ngFor="let m of fireDepartementdetails">
+            <agm-marker  [latitude]="m.latitude " [longitude]="m.longitude" *ngIf="showIncidentMarkers">
+              <agm-info-window >
+                <strong class="addresszip">zipCode: {{m.zipCode}} </strong><br>
+                <strong class="addresszip">Address: {{m.locationType}} </strong>
+              </agm-info-window>
+            </agm-marker>
+          </div>
+          
+          
+            <agm-marker  *ngFor="let v of viewIncidentdetails"  [latitude]="v.latitude " [longitude]="v.longitude" [hidden]="!showIncidentMarkers">
+              <agm-info-window >
+                <strong class="color:red">zipCode: {{v.zipCode}} </strong><br>
+                <strong class="color:red">Address: {{v.locationType}} </strong>
+              </agm-info-window>
+            </agm-marker>
+      
+         
+            <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
+            [radius]="5000"
+            [fillColor]="'red'"
+            [circleDraggable]="true"
+            [editable]="true">
+        </agm-circle>
+            
+          </agm-map>
+          </div>
+      
+      </div>
+      <div class=" col col-sm-auto">
+         
+      </div>
+      
+      </div>
+   
+        </div>
+      
     </div>
   </div>
    
-    <div class="row">
-
-    </div>
+   
     
-  </div>
+ 
 </div>
