@@ -10,12 +10,18 @@ import { AuthService } from 'src/app/auth.service';
 export class NavigationComponent {
   firstname="string"
   userDetails=[]
-  constructor(private authService : AuthService ){
+  highlightedIcon: string = '';
 
+  highlightIcon(icon: string) {
+    this.highlightedIcon = icon;
+  }
+  constructor(private authService : AuthService ){
+ 
   }
 
   ngOnInit(){
     const userDetails = this.authService.getloginresponse();
+    console.log("user",userDetails)
   }
 }
 

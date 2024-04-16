@@ -21,6 +21,7 @@ export class HoneywellService {
   
   private baseUrl = 'https://localhost:7094/api/Registration';
   private mapserviceUrl = 'https://localhost:44388/api/GoogleMaps/GoogleMaps';
+  private riskserviceUrl ='https://localhost:44388/api/GoogleMaps/RiskScoreDetails'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -54,6 +55,11 @@ export class HoneywellService {
   showIncidents(zipCode: string, region: string, fromDate: Date, toDate: Date): Observable<any> {
     const data = { zipCode, region, fromDate, toDate }; // Include fromDate and toDate in the data
     return this.http.post<any>(this.mapserviceUrl, data);
+  }
+
+  getRiskScore(data:any): Observable<any> {
+    
+    return this.http.post<any>(this.riskserviceUrl, data);
   }
   // Example method to post data to API
   postData(data: any): Observable<any> {

@@ -1,0 +1,71 @@
+<div class="container-fluid col col-lg-12">
+    <div class="row" style="line-height: 24px;">
+        <app-navigation></app-navigation>
+      </div>  
+      <div class="container-fluid-row" >
+        <div class="row " style="background-color: #303030;">
+            <div class=" col-12 col-lg-1 " style="padding-left: 0px;">
+              <div class="sidebar">
+                <!-- <app-sidebar (incidentTypeSelected)="showIncidents($event)"></app-sidebar> -->
+                <app-sidebar></app-sidebar>
+               </div>
+            </div>
+            <div class=" col-12 col-lg-11 " style="width: 94%;margin-left: -3%;" >
+              <div class="row">
+                <div class="col">
+                  <span class="dashboard">Dashboard</span>
+                  <h4 class="custom-line-height fire">Community Risk Index Details</h4>
+                  <span class="custom-line-height Address">Seattle, WA, 98104-2618</span>
+                  <h6 class="custom-line-height FDID">FDID: <span style="color: orangered;">17M15</span></h6>
+                </div>
+              
+                  <div class="col d-flex justify-content-end">
+                    <p style="color: #0071B3;margin-top: 24px;margin-left: 20px;" (click)="dashboardpage()">
+                      <i class="bi bi-caret-left"></i>Back</p>
+                    <!-- Dropdown goes here -->
+                    <div class="col col-sm-auto" >
+                    <!-- <div class="dropdown">
+                      <label class="labelstyles">All Battalions</label>
+                      <select class="form-select" [(ngModel)]="selectedRegion" name="selectedRegion"  >
+                        <option *ngFor="let region of regions" [ngValue]="region">{{ region }}</option>
+                      </select>
+                      
+                    </div> -->
+                    <div class=" col col-sm-auto m-3" >
+                      <select class="form-select" style="cursor: pointer;" aria-label="table select"  >
+                        <option value="" disabled>All Battalions</option>
+                        <option *ngFor="let region of regions" [ngValue]="region">{{ region }}</option>
+                    </select>
+                   
+                  </div>
+                  </div>
+                  
+                  <div class="col col-sm-auto">
+                    <div class=" col col-sm-auto m-3" >
+                      <select   class="form-select" style="cursor: pointer;" aria-label="table select" >
+                        <option value="" disabled>Search by ZIP</option>
+                        <option  *ngFor="let zipCode of zipCodes" [ngValue]="zipCode">{{ zipCode }}</option>
+                    </select>
+                  </div>
+                    <!-- <div class="dropdown">
+                      <label class="labelstyles">Zip Code</label>
+                      <select class="form-select" [(ngModel)]="selectedZipCode" name="selectedZipCode">
+                          <option *ngFor="let zipCode of zipCodes" [ngValue]="zipCode">{{ zipCode }}</option>
+                      </select>
+                  </div> -->
+                </div>
+                <div class="col col-sm-2 m-4" >
+                  <i class="bi bi-question-circle-fill p-2 mt-4" style="color:#0071B3;"></i>
+                  <a href="" style="color:#0071B3" >HELP</a>
+                </div>
+                
+                  </div>
+                  <!-- <a href="/dashboard"><i class="bi bi-caret-right"></i>Back</a> -->
+                  <!--  -->
+               
+                
+              </div> 
+              <hr class="m-0">
+                </div>
+            </div>
+</div>

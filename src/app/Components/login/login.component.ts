@@ -99,7 +99,7 @@ navigateToDepartmentPage(department: string): void {
 console.log('hi', department)  
   switch(department) {
     case 'Fire':
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
       break;
     case 'Firemarshall':
       this.router.navigate(['/register']);

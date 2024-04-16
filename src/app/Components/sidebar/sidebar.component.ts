@@ -6,12 +6,25 @@ import { HoneywellService } from 'src/app/Services/honeywell.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  highlightedIcon: string = '';
 
+  highlightIcon(icon: string) {
+    this.highlightedIcon = icon;
+  }
   constructor(private honeywellService :HoneywellService){}
+
+ 
 
   fireDepartement() {
     this.honeywellService.fireStation.emit(true);
   }
 
-  
+  viewIncidents(){
+    this.honeywellService.fireStation.emit(true);
+  }
+
 }
+
+
+
+

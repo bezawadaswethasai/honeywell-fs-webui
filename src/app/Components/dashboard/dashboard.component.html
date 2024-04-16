@@ -1,8 +1,8 @@
 <div class="container-fluid col col-lg-12">
-  <div class="row">
+  <div class="row" style="line-height: 24px;">
   <app-navigation></app-navigation>
 </div>
-  <div class="container-fluid-row" >
+  <div class="container-fluid-row" style="background-color: #303030;" >
     <div class="row ">
     <div class=" col-12 col-lg-1 " style="padding-left: 0px;">
       <div class="sidebar">
@@ -10,47 +10,60 @@
         <app-sidebar></app-sidebar>
        </div>
     </div>
-    <div class=" col-12 col-lg-11 " >
+    <div class=" col-12 col-lg-11 " style="width: 94%;margin-left: -3%" >
       <div class="row">
         <div class="col">
-          <h6>Dashboard</h6>
-          <h4 class="custom-line-height"><b>Fire Department </b></h4>
-          <sub class="custom-line-height">Seattle , WA , 98104-2618</sub><br>
-          <sub class="custom-line-height">FDID: 17M15</sub>
+          <span class="dashboard">Dashboard</span>
+          <h4 class="custom-line-height fire">Fire Department</h4>
+          <span class="custom-line-height Address">{{this.Address}}</span>
+          <h6 class="custom-line-height FDID">FDID: <span style="color: orangered;">17M15</span></h6>
         </div>
-        <div class="col d-flex align-items-center justify-content-end">
+        <div class="col d-flex justify-content-end">
           <!-- Dropdown goes here -->
-          <div class="col col-sm-4" style="padding: 10px;">
-          <div class="dropdown">
+          <div class="col col-sm-4" >
+          <!-- <div class="dropdown">
             <label class="labelstyles">All Battalions</label>
             <select class="form-select" [(ngModel)]="selectedRegion" name="selectedRegion"  >
               <option *ngFor="let region of regions" [ngValue]="region">{{ region }}</option>
             </select>
             
-          </div>
+          </div> -->
+          <div class=" col col-sm-auto m-3" >
+            <select class="form-select" style="cursor: pointer;" aria-label="table select" [(ngModel)]="selectedRegion" (ngModelChange)="selectYear($event)">
+              <option value="" disabled>All Battalions</option>
+              <option *ngFor="let region of regions" [ngValue]="region">{{ region }}</option>
+          </select>
+         
+        </div>
         </div>
         
         <div class="col col-sm-4">
-          <div class="dropdown">
+          <div class=" col col-sm-auto m-3" >
+            <select   class="form-select" style="cursor: pointer;" aria-label="table select" [(ngModel)]="selectedZipCode" (ngModelChange)="selectYear($event)">
+              <option value="" disabled>Search by ZIP</option>
+              <option  *ngFor="let zipCode of zipCodes" [ngValue]="zipCode">{{ zipCode }}</option>
+          </select>
+        </div>
+          <!-- <div class="dropdown">
             <label class="labelstyles">Zip Code</label>
             <select class="form-select" [(ngModel)]="selectedZipCode" name="selectedZipCode">
                 <option *ngFor="let zipCode of zipCodes" [ngValue]="zipCode">{{ zipCode }}</option>
             </select>
-        </div>
+        </div> -->
       </div>
-      <div class="col col-sm-2" style="margin-top: 15px;">
-        <i class="bi bi-question-circle-fill p-2 mt-2" style="color:#0071B3"></i>
-        <a href="">HELP</a>
+      <div class="col col-sm-2 m-4" >
+        <i class="bi bi-question-circle-fill p-2 mt-4" style="color:#0071B3"></i>
+        <a href="" style="color:#0071B3" >HELP</a>
       </div>
       
         </div>
       </div>
-      <hr>
+      <hr class="m-0">
       <div class="row ">
         <div class=" col col-sm-auto">
-        <p>AT A GLANCE</p>
+        <p class="glance">AT A GLANCE</p>
       </div>
-      <div class=" col col-sm-auto" style="margin-top: -5px;">
+      <div class=" col col-sm-auto mt-1" >
           <select class="form-select form-select-sm" style="cursor: pointer;" aria-label="table select" [(ngModel)]="selectedYear" (ngModelChange)="selectYear($event)">
             <option value="" disabled>This Year</option>
             <option *ngFor="let plan of years" [ngValue]="plan">{{ plan }}</option>
@@ -60,23 +73,50 @@
       
       </div>
       <div class="row ">
-        <div class=" col col-sm-9">
+        <div class=" col col-lg-8 col-md-8 col-sm-6">
           <div class="map-container">
             <div class="top-bar">
-              <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">. 365  Incidents</a>
-              
+              <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 60px;">
+                <a class="navbar-brand" href="#">
+                 
+                    <ul>
+                      <li class="mt-3">
+                        <!-- <i class="bi bi-dot incidents"></i> -->
+                        <span class="number">365</span>
+                        <span class="name">Incidents</span>
+                        <div class="increase">
+                        <i class="bi bi-caret-up-fill fs-6 "></i>
+                          <span >18% Increase</span>
+                        
+                      </div>
+                      </li>
+                    </ul>
+                    <!-- <span class="increase">18% Increase</span> -->
+                </a>
+                <div class="vertical-line"></div>
+                <a class="navbar-brand" href="#">
+                 
+                  <ul>
+                    <li >
+                      <span class="number">92%</span>
+                      <span class="name">Fire</span>
+                        <div class="Coverage">Coverage</div>
+                    </li>
+                  </ul>
+                  <!-- <span class="increase">18% Increase</span> -->
+              </a>
+              <div class="vertical-line ml-2"></div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <!-- Content on the left side of the navbar -->
                   <ul class="navbar-nav mr-auto">
                     <!-- You can add additional links or content here -->
                   </ul>
-                  <div class="col d-flex align-items-center justify-content-end"  style="margin-right: 10%;">
+                  <div class="col d-flex "  style="margin-left: 80%;">
                   <!-- Content on the right side of the navbar -->
                     <!-- checkbox-dropdown.component.html -->
                     <div class="dropdown" style="width: auto;" [class.show]="isDropdownOpen" (click)="toggleDropdown()">
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
+                        {{ selectedDropdownItem?.itemName || 'Select item' }}
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div class="dropdown-container">
@@ -90,54 +130,100 @@
                     
                     
                 </div>
+                <div class="vertical-line"></div>
                   <!-- Additional content -->
-                 
+                </div>
+                <div class="col d-flex align-items-center justify-content-end" >
+                  <i class="bi bi-book large m-2" style="color: #303030;"></i>
                 </div>
               </nav>
               
             </div>
+            {{fireDepartementdetails}}
           <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeId]="selectedMapType">
-            <div *ngFor="let m of fireDepartementdetails">
-            <agm-marker  [latitude]="m.latitude " [longitude]="m.longitude" *ngIf="showIncidentMarkers">
-              <agm-info-window >
+           
+            <div *ngFor="let m of fireDepartementdetails" >
+             
+            <agm-marker  [latitude]="m.latitude " [longitude]="m.longitude"  >
+              <agm-info-window [isOpen]="true" >
                 <strong class="addresszip">zipCode: {{m.zipCode}} </strong><br>
                 <strong class="addresszip">Address: {{m.locationType}} </strong>
+                
               </agm-info-window>
             </agm-marker>
           </div>
-          
-          
-            <agm-marker  *ngFor="let v of viewIncidentdetails"  [latitude]="v.latitude " [longitude]="v.longitude" [hidden]="!showIncidentMarkers">
-              <agm-info-window >
+          {{viewIncidentdetails}}
+          <div *ngFor="let v of viewIncidentdetails">
+            <agm-marker    [latitude]="v.latitude " [longitude]="v.longitude" >
+              <agm-info-window [isOpen]="true"  >
                 <strong class="color:red">zipCode: {{v.zipCode}} </strong><br>
                 <strong class="color:red">Address: {{v.locationType}} </strong>
               </agm-info-window>
             </agm-marker>
-      
+            </div>
          
-            <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
+            <!-- <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
             [radius]="5000"
             [fillColor]="'red'"
             [circleDraggable]="true"
             [editable]="true">
-        </agm-circle>
+        </agm-circle> -->
             
           </agm-map>
           </div>
       
       </div>
-      <div class=" col col-sm-auto">
-         
+      <div class=" col col-lg-4 col-md-4 col-sm-6">
+        <div class="card text-white bg-dark" style="height: 400px;">
+          <h5 class="community m-1"><b>Community risk index</b></h5>
+          <a href=""  class="justify-content-end modalss"  data-bs-toggle="modal" data-bs-target="#exampleModal">View By Zip Code</a>
+          <div id="main" (click)="newPage()"></div>
+          
+        </div>
+        
+        <div class="card text-white bg-dark mt-2" style="height: 300px;">
+          <div id="container"></div>
+        </div>
+      
       </div>
       
       </div>
    
         </div>
-      
     </div>
   </div>
-   
-   
-    
- 
+</div>
+
+
+<div class="modal  model-sm modal-bg-dark" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1> -->
+        <!-- <i class="bi bi-caret-right" data-bs-dismiss="modal" aria-label="Close"></i> -->
+         <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button> 
+     <h6><b style="color: #fff;">Risk Index By Zip Code</b></h6>
+      <div class="modal-body bg-dark">
+       
+          <div class="row">
+            
+              <table class="table bg-dark">
+                <thead  id="blue-header">
+                  <tr>
+                    <th>ZIP Code</th>
+                    <th>Risk Score (Out Of 10)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let risk of riskscoresZipcode">
+                    <td>{{ risk.zipcode }}</td>
+                    <td>{{ risk.score }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            
+          </div>
+       
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,31 +1,28 @@
 <div class="container-fluid ">
-    <div class="row">
-        <nav class="navbar navbar-dark ">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="row">
+      <nav class="navbar navbar-dark ">
+          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <!-- <mat-icon class="ml-5">menu</mat-icon> -->
+          </button> -->
+          <i class="bi bi-list large-icon " style="font-size: 2.3rem;"></i>
           <img src="assets/honeywell.png" alt="no honeywell image" class="image">
-          <!-- <span class="navbar-brand h1 m-2" style="color: orangered;">Honeywell</span> -->
           <span class="example-spacer"></span>
          
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-          <i class="bi bi-bell-fill"></i>
-        </button>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-            <!-- <mat-icon matBadge="6" matBadgeColor="warn">email</mat-icon> -->
-            <i class="bi bi-chat-square"></i>
-             <!-- <span class="badge badge-light">3</span> -->
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-          <i class="bi bi-info-circle"></i>
-          </button>
-          <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-            <i class="bi bi-person-circle"></i>
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="highlightIcon('bell')">
+              <i id="bellIcon" class="bi bi-bell-fill" [ngClass]="{'highlighted-icon': highlightedIcon === 'bell'}"></i>
             </button>
-            <span >John</span>
-        <!-- <span *ngFor="let user of userDetails">{{user.firstname}}</span> -->
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="highlightIcon('chat')">
+              <i id="chatIcon" class="bi bi-chat-square" [ngClass]="{'highlighted-icon': highlightedIcon === 'chat'}"></i>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="highlightIcon('info')">
+              <i id="infoIcon" class="bi bi-info-circle" [ngClass]="{'highlighted-icon': highlightedIcon === 'info'}"></i>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="highlightIcon('person')">
+              <i id="personIcon" class="bi bi-person-circle" [ngClass]="{'highlighted-icon': highlightedIcon === 'person'}"></i>
+            </button>
             
+          <span id="userName">John</span>
         </nav>
-      </div>
+        
     </div>
+  </div>
