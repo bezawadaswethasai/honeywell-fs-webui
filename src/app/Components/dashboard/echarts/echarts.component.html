@@ -1,0 +1,75 @@
+<div class="container-fluid-row">
+    <div class="card text-white custom-card ">
+        <span class="community ms-2 p-2">Community Risk Index</span>
+        <a href="" class="d-flex justify-content-end text-white Address me-2" data-bs-toggle="modal"
+          data-bs-target="#exampleModal" (click)="getZipRiskScore()">View By Zip Code</a>
+        <div id="main" (click)="newPage()"></div>
+        <div id="labels">
+    
+          <div class="label ms-5 pb-4 Address"><i class="bi bi-circle green p-1"></i>Low Risk</div>
+          <div class="label pb-4 me-3 Address"><i class="bi bi-circle yellow p-1"></i> Medium Risk</div>
+          <div class="label pb-4 me-5 Address"><i class="bi bi-circle red p-1"></i> High Risk</div>
+        </div>
+      </div>
+    
+      <div class="card text-white  mt-2 custom-card">
+        <span class="community ms-2 p-2">Top 5 Factors For The Risk</span>
+        <a href="" class="d-flex justify-content-end text-white Address me-2" data-bs-toggle="modal"
+          data-bs-target="#exampleModal1" (click)="openChart()">View All</a>
+    
+        <div id="barCharts" class="me-3"> </div>
+      </div>
+    </div>
+      <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+          <div class="modal-content">
+            <div class="modal-body p-0 ">
+              <h6 class="dashboard  p-2">Risk Index By Zip Code</h6>
+              <div class="d-flex flex-row ms-1 me-1">
+                <span class="m-auto pointer" data-bs-dismiss="modal" (click)="closeModal()">
+                  <img src="assets/arrow.svg" alt="no img" style="position: absolute;">
+                  <!-- <i class="bi bi-caret-right-square-fill " style="position: absolute;font-size:1em;"></i> -->
+                </span>
+      
+                <table class="table">
+                  <thead id="blue-header">
+                    <tr>
+      
+                      <th class="Addresss">ZIP Code</th>
+                      <th class="Addresss">Risk Score (Out Of 10)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+      
+                    <tr *ngFor="let zip of zipcodes;let i=index">
+                      <td class="Addresss" style="background-color: #303030 !important;color: #ededed;border-color: gray;">{{
+                        zip }}</td>
+                      <td class="Addresss" style="background-color: #303030 !important;color: #ededed;border-color: gray;">
+                        {{riskscores[i]}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+      
+            </div>
+      
+      
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+          <div class="modal-content">
+            <div class="modal-body p-0 ">
+              <h6 class="dashboard  p-2">Overall Factors For The Risk</h6>
+              
+              <!-- <span class="m-auto pointer" data-bs-dismiss="modal" (click)="closeModal1()">
+                <img src="assets/arrow.svg" alt="no img" style="position: absolute;margin-top: 25%;">
+            
+              </span> -->
+              <div id="barchart1" class="m-2"></div>
+            </div>
+            
+          </div>
+        </div>
+      </div>

@@ -1,23 +1,8 @@
-/* styles.css */
-//@import "~bootstrap/dist/css/bootstrap.min.css";
-
-
-
-
-.sidebar{
+.sidebar {
   float: left;
 }
 
-.lablestyles{
-  font-family: Poppins;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  text-align: left;
-}
-
-.dropdown-toggle{
-  font-family: Poppins;
+.dropdown-toggle {
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -26,9 +11,11 @@
   background-color: #fff;
   border: 1px solid #525252;
 }
+
 .dropdown-container {
   padding: 10px;
 }
+
 .checkbox {
   margin-bottom: 5px;
 }
@@ -49,206 +36,125 @@ agm-map {
   margin-top: -12px;
   //padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure the top bar appears above the map */
+  z-index: 1000;
+  /* Ensure the top bar appears above the map */
 }
+
 .map-container {
   position: relative;
   width: 100%;
-  height: 500px; /* Set the desired height for the map */
+  height: 500px;
+  /* Set the desired height for the map */
 }
 
 
-* {
-  font-family: Lato;
-}
 
-a {
-  color: darkblue;
-}
+
 
 /* 
-* Always set the map height explicitly to define the size of the div element
-* that contains the map. 
-*/
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
 #map {
-height: 100%;
+  height: 100%;
 }
 
 /* 
-* Optional: Makes the sample page fill the window. 
-*/
+ * Optional: Makes the sample page fill the window. 
+ */
 html,
 body {
-height: 100%;
-margin: 0;
-padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.addresszip{
-color: black;       /* Text color */
-
-}
-
-// .custom-line-height{
-//   line-height: 0.2; 
-// }
-.FDID{
-font-family: Arial Rounded MT Bold;
-font-size: 10px;
-}
-.fire{
-font-family: Arial Rounded MT Bold;
-font-size: 28px;
-line-height: 25px ; 
-margin-bottom: -5px;
-}
-.Address{
-font-family: Arial Rounded MT Bold;
-font-size: 12px;
-font-weight: 400;
-line-height: 13.89px;
-text-align: left;
+.addresszip {
+  color: black;
+  /* Text color */
 
 }
 
-.glance{
-font-family: Arial Rounded MT Bold;
-font-size: 22px;
-font-weight: 400;
-line-height: 36px;
-text-align: left;
-
+.fire {
+  font-size: 28px;
 }
 
-
-.bullet {
-display: inline-block;
-position: relative;
-text-align: center;
-font-family: Arial, sans-serif;
+.glance {
+  font-size: 22px;
+  font-weight: 400;
 }
 
-.fc{
-font-size: 3.5rem;  
-margin-left: -10px; 
-margin-top: 20px;
-color:#F37021
-}
 .number {
-
-font-size: 32px;
-margin-top: 10px;
-font-family: Arial Rounded MT Bold;
-color: #606060;
+  font-weight: 400;
+  font-size: 32px;
+  color: #606060;
 }
 
 .name {
-display: contents;
-font-size: 12px;
-color: black; // Black color for the name
-margin-top: 3pc; // Adjust as needed to position above the number
-margin-left: 60%;
-font-family: "Arial Rounded MT Bold";
-
+  font-size: 14px;
+  color: #303030;
+  font-family: sans-serif;
 }
-.increase{
-font-family: "Arial Rounded MT Bold";
-font-size: 14px;
-font-weight: 400;
-line-height: 20px;
-text-align: left;
-color: #EE3124;
-margin-left: 30px;
-margin-top: -0.5pc;
 
+.increase {
+  font-size: 14px;
+  font-weight: 400;
+  color: #EE3124;
 }
 
 .vertical-line {
-border-left: 1px solid #eee; /* Adjust color and width as needed */
-height: 58px; /* Adjust height as needed */
-margin-left: 20px;
-}
-.Coverage{
-margin-left: 65%;
-color: #404040;
-font-family: "Arial Rounded MT Bold";
-font-size: 14px;
-font-weight: 400;
-line-height: 4px;
+  border-left: 1px solid #eee;
+  /* Adjust color and width as needed */
+  height: 40px;
+  /* Adjust height as needed */
+  margin-left: 20px;
 }
 
-::marker{
-color: #EE3124;
-
+::marker {
+  color: #EE3124;
 }
 
-#main{
 
-width: 400px;
-height: 400px;
-
-
-}
-.container{
-width: 400px;
-height: 400px;
-}
-#blue-header th {
-background-color: #0071B3;
-color: white;
-}
-.modal-content{
-background: #303030;
-color: #fff;
-}
-.modal-dialog {
-background-color: #303030 ;
-}
-.modal-backdrop.show {
-opacity: 0.5; /* Optionally, you can adjust the opacity of the backdrop */
-background-color:#303030; /* Optionally, you can set the color of the backdrop */
-}
-.table {
-background-color: #303030;
-color: #fff; 
+.container2 {
+  width: 400px;
+  height: 400px;
 }
 
-.card{
-height: 300px;
-border: 1px solid #E0E0E0;
-margin-top: -12px;
+.header-color {
+  background-color: #007bff;
+  color: #fff;
 }
 
-.modalss{
-color: white;
-font-size: 10px;
-text-align: end;
-margin-right: 10px;
- font-family: poppins;
-
-}
-.header-color{
-background-color: #007bff; color: #fff;
+.dashboard {
+  font-size: 16px;
 }
 
-.dashboard{
-font-family: Sansation;
-font-size: 16px;
-margin-left: 3px;
-}
-
-.incidents{
-color: #EE3124;
-font-size: 3.5rem;
-margin-left: -10px;
-}
-
-.community{
-font-family: "Airal Rounded MT Bold";
+.community {
   font-size: 20px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  margin-left: 10px;
+  font-family: sans-serif;
+  letter-spacing: 0.05rem;
 }
+
+
+.black-body {
+  background-color: 303030;
+  color: white; /* Change text color for better visibility */
+}
+
+#analysis{
+  width: 500px;
+  height: 250px;
+}
+.sevrityanalysis{
+  margin-left: -50px; 
+  margin-top: -50px;
+}
+.borderr{
+  border: 1px solid #505050;
+ 
+}
+
+
+
+
+

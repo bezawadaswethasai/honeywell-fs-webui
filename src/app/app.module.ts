@@ -36,6 +36,8 @@ import { timeout } from 'rxjs';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { NavigationComponent } from './Components/navigation/navigation.component';
 import { RiskindexComponent } from './Components/dashboard/riskindex/riskindex.component';
+import { AgmMapComponent } from './Components/dashboard/agm-map/agm-map.component';
+import { EchartsComponent } from './Components/dashboard/echarts/echarts.component';
 
 
 
@@ -50,7 +52,9 @@ import { RiskindexComponent } from './Components/dashboard/riskindex/riskindex.c
     DashboardComponent,
     SidebarComponent,
     NavigationComponent,
-    RiskindexComponent
+    RiskindexComponent,
+    AgmMapComponent,
+    EchartsComponent
   ],
   imports: [
     BrowserModule,

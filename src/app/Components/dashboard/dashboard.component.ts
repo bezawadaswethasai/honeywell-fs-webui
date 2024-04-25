@@ -13,6 +13,8 @@ import { HoneywellService } from 'src/app/Services/honeywell.service';
 import * as echarts from 'echarts';
 import { RouterLinkActive } from '@angular/router';
 import { Router } from '@angular/router';
+import { AnimationPlayer, style } from '@angular/animations';
+import { count } from 'rxjs';
 
 
 
@@ -24,14 +26,7 @@ export interface PeriodicElement {
  
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', },
-  {position: 2, name: 'Helium', },
-  {position: 3, name: 'Lithium', },
-  {position: 4, name: 'Beryllium', },
-  {position: 5, name: 'Boron', },
- 
-];
+
 
 export interface Tile {
   color: string;
@@ -54,26 +49,14 @@ interface Item {
 })
 export class DashboardComponent implements OnInit  {
   
-  gauge: any;
 
-  public lat = 51.678418;public lng = 7.809007;
-public origin: any;public destination: any
+ 
 
-  latitude = 51.678418;
-  longitude = 7.809007;
-  zoom = 12;
   Address:any;
  gmapDetails:any;
  riskscoresZipcode:any=[];
- fireDepartementdetailslat:any={}
- regionzipcodeDetails:any={}
- fireDepartementdetailslng:any={}
- fireDepartementdetails:any=[
- 
-]
- viewIncidentdetails:any=[]
- showFireDepartmentMarkers = false;
- showIncidentMarkers = false;
+ riskscores :any=[] //view by zip code riskscore values
+ zipcodes :any=[] //view by zip code zipcodes values
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -83,15 +66,15 @@ public origin: any;public destination: any
   responseData: any;
   @ViewChild('dialogTemplate') dialogTemplate: TemplateRef<any>;
   selectedZipCode: string[]=[]; 
-  selectedRegion:string[]=[];
+  viewbyzipcodeDetails : any=[] //display view zipcodes and risk score on click on modal
+  selectedRegion:any=[];
+  selectedRegions:any=[]
+  selectedZipCodes:any=[]
+  zipcodeslength:any=[]
   fromDate!: Date;
   toDate!: Date;
-  zipCodes = [  ["99501"] ,["99502"]];
-  regions= [["Alaska"],["Arizona"],["Arkansas"]];
    chart:any;
    barchart : any;
-   selectedMapType: string = 'roadmap';
-
  selectedValue!: "string";
   years =["2018","2019","2020","2021","2022","2023","2024"];
   selectedYear:any="";
@@ -106,8 +89,7 @@ public origin: any;public destination: any
  
 
 
-  displayedColumns: string[] = ['position', 'name', ];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+ 
   apiData: any;
   loginResponse: any;
 
@@ -116,70 +98,14 @@ public origin: any;public destination: any
   //   this.dataSource.filter = filterValue.trim().toLowerCase();
   // }
  
-
-  dropdownList: Item[] = [
-    { id: 1, itemName: 'Fire Stations',selected: false },
-    { id: 2, itemName: 'Risk Score' ,selected: false},
-    { id: 3, itemName: 'Incident' ,selected: false},
-    { id: 4, itemName: 'Hydrant',selected: false },
-    
-  ];
-  selectedDropdownItem: Item | null = null;
-  selectedItems: Item[] = [];
-  isDropdownOpen = false;
-
-  dropdownSettings = {
-    singleSelection: false,
-    idField: 'id',
-    textField: 'itemName',
-    selectAllText: 'Select All',
-    unSelectAllText: 'Unselect All',
-    itemsShowLimit: 3,
-    allowSearchFilter: true
-  };
-
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
-  
-  onCheckboxChange(event: any, item: Item) {
-    item.selected = event;
-    
-    if (item.itemName === "Fire Stations") { 
-     this.fireDepartementdetails = this.gmapDetails.locations.fireDepartment;
-      console.log('Fire Stations selected. Details:', this.fireDepartementdetails);
-
-  } else if (item.itemName === "Incident") {
-      this.viewIncidentdetails = this.gmapDetails.locations.incidents;
-      console.log('Incident selected. Details:', this.viewIncidentdetails);
-  } else {
-      console.log('Unknown selection:', item.itemName);
-  }
-    console.log(event); // Log the event
-    console.log(item); // Log the item
-}
-
-
-  isSelected(item: Item): boolean {
-    return this.selectedItems.findIndex(selectedItem => selectedItem.id === item.id) > -1;
-  }
-  constructor(public dialog: MatDialog,private authService: AuthService,private honeywellservice :HoneywellService, private formBuilder: FormBuilder,private router: Router) {
+  constructor(public dialog: MatDialog,private authService: AuthService,private honeywellservice :HoneywellService, private formBuilder: FormBuilder,private router: Router, private renderer :Renderer2 ,private elementRef: ElementRef) {
     this.dialogTemplate = {} as TemplateRef<any>
-    this.honeywellservice.fireStation.subscribe((showFireDepartmentMarkers: boolean) => {
-      this.showFireDepartmentMarkers = showFireDepartmentMarkers;
-      this.showIncidentMarkers = !showFireDepartmentMarkers;
-      
-
-    });
-    
-  
-
-    
    }
 
+ 
 
 
+ 
   // onCheckboxChange(event: any, item: Item) {
   //   if (event.target.checked) {
   //     this.selectedItems.push(item);
@@ -187,46 +113,40 @@ public origin: any;public destination: any
   //     this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem.id !== item.id);
   //   }
   // }
-  openDialog(): void {
-    this.dialog.open(this.dialogTemplate, {
-      width: '400px', // Adjust width as needed
-    });
-  }
-
-  closeDialog(): void {
-    this.dialog.closeAll();
-  }
   selectOption(option: string): void {
     console.log('Selected option:', option);
     // You can perform additional actions here based on the selected option
   }
-  
-  
   ngOnInit() {
+  
+   
+   
+    // setTimeout(() => {
+    //   this.barChart();
+    // }, 1000);
 
-    this.gaugeChart()
- 
-    this.honeywellservice.fireStation.subscribe((Response)=>{
-      if(Response){
+    // this.honeywellservice.fireStation.subscribe((Response)=>{
+    //   if(Response){
         
-        this.fireDepartementdetails = this.gmapDetails.locations.fireDepartment
-        this.viewIncidentdetails = this.gmapDetails.locations.incidents
-        console.log('ViewIncident',this.viewIncidentdetails)
-        console.log('FireIncident',this.fireDepartementdetails)
-         console.log('latitude',this.fireDepartementdetailslat)
-         console.log('lng',this.fireDepartementdetailslng)
-         this.origin = { lat: 51.678418, lng: 7.815982 };this.destination = { lat: 51.678418, lng: 7.815982 };
-         console.log('Origin:', this.origin);
-         console.log('Destination:', this.destination);
-         console.log('address',this.Address);
+    //     this.fireDepartementdetails = this.gmapDetails.locations.fireDepartment
+    //     this.viewIncidentdetails = this.gmapDetails.locations.incidents
+    //     console.log('ViewIncident',this.viewIncidentdetails)
+    //     console.log('FireIncident',this.fireDepartementdetails)
+    //      console.log('latitude',this.fireDepartementdetailslat)
+    //      console.log('lng',this.fireDepartementdetailslng)
+         
+    //      console.log('address',this.Address);
 
-      }
-    })
+    //   }
+    // })
 
 
   const regionzipcodeDetails = this.authService.getloginresponse();
   this.Address = regionzipcodeDetails.address
+  this.selectedRegions = regionzipcodeDetails.region
+  this.selectedZipCodes =regionzipcodeDetails.zip_code
   console.log('Address',this.Address);
+  console.log('loginResponse',this.selectedZipCodes)
     //this.honeywellservice.getData();
     //this.honeywellservice.sendDataToBackend(data);
    
@@ -259,16 +179,17 @@ public origin: any;public destination: any
     //   this.form.reset();
     // }
   
+    
   
 
     this.chart = new Highcharts.Chart({
       chart: {
-         renderTo: 'container',
+         renderTo: 'container2',
           type: 'gauge'
       },
       pane: {
-        startAngle: 0,
-        endAngle: 360,
+        startAngle: -90,
+        endAngle:  89.9,
         background: [{
             backgroundColor: '#ffffff',
             borderWidth: 1,
@@ -284,28 +205,14 @@ public origin: any;public destination: any
               text: 'Total percent market share'
           }
       },
-     
-      plotOptions: {
-          pie: {
-              allowPointSelect: true,
-              cursor: 'pointer',
-              dataLabels: {
-                  enabled: true,
-                  format: '{point.y}%',
-                  distance:-20, // This controls the distance of the labels inside the pie
-                  style: {
-                      fontWeight: 'bold',
-                      color: 'white'
-                  }
-              },
-              showInLegend: true
-          }
-      },
+    
+   
      
      series :
      
            
-             [{
+             [
+              {
           name: 'Browsers',
           data: [
   
@@ -332,7 +239,8 @@ public origin: any;public destination: any
           dataLabels: {
               enabled: true
           }
-      }],
+      }
+    ],
       annotations: [{
         labelOptions: {
           align: 'center',
@@ -437,6 +345,7 @@ public origin: any;public destination: any
       ]
   }as Highcharts.Options);
   
+  
  
  
  
@@ -454,78 +363,17 @@ public origin: any;public destination: any
  
 }
 
-newPage(){
-  this.router.navigate(['/riskindex']);
-}
-private gaugeChart(): void {
-  this.gauge = echarts.init((document.getElementById('main')) as any);
-
-  const option = {
-    series: [
-      {
-        type: 'gauge',
-
-        axisLine: {
-          lineStyle: {
-            width: 30,
-            color: [
-                [0.3, '#34CC33'],
-                [0.7, '#F5FB53'],
-                [1, '#DC483E']
-              
-            ]
-          }
-        },
-        pointer: {
-          itemStyle: {
-            color: 'auto'
-          }
-        },
-        axisTick: {
-          distance: -30,
-          length: 8,
-          lineStyle: {
-            color: '#fff',
-            width: 2
-          }
-        },
-        splitLine: {
-          distance: -30,
-          length: 30,
-          lineStyle: {
-            color: '#fff',
-            // width: 4
-          }
-        },
-        axisLabel: {
-          color: 'inherit',
-          distance: 40,
-          fontSize: 20
-        },
-        detail: {
-          valueAnimation: true,
-          formatter: '{value}',
-          color: 'inherit'
-        },
-        data: [
-          {
-            value: 70
-          }
-        ]
-      }
-    ]
-  };
-
-  this.gauge.setOption(option);
 
 
-}
+
+
+
 
 selectYear(year:any){
   this.selectedYear = year
   const data = {
-    zipCode: this.selectedZipCode,
-    region: this.selectedRegion,
+    zipCode: this.selectedZipCodes,
+    region: this.selectedRegions,
     year: this.selectedYear,
    
 };
@@ -569,12 +417,41 @@ showIncidents() {
       console.log(this.fromDate,this.toDate);
   });
 
-  this.honeywellservice.getRiskScore(data).subscribe(response => {
-    this.riskscoresZipcode = response
-     console.log('Zipcode Responses:', this.riskscoresZipcode);
- });
+//   this.honeywellservice.getRiskScore(data).subscribe(response => {
+//     this.riskscoresZipcode = response
+//      console.log('Zipcode Responses:', this.riskscoresZipcode);
+//  });
 }
   
+//view By Zip-code API
+
+
+
+getZipRiskScore(){
+  const data ={
+    zipCode : this.selectedZipCodes
+    
+  }
+  console.log('zipcodevalue',this.selectedZipCodes)
+  this.honeywellservice.getZipRiskScore(data).subscribe(response => {
+    this.viewbyzipcodeDetails = response;
+   this.riskscores= this.viewbyzipcodeDetails.riskScore
+   this.zipcodes= this.viewbyzipcodeDetails.zipCodes
+   this.zipcodeslength= this.zipcodes.length
+
+    console.log('view by riskcores',this.riskscores)
+    console.log('view by zipcode',this.zipcodes)
+
+  });
+}
+
+  // this.honeywellservice.getZipRiskScore().subscribe(response => {
+  //     this.riskscoresZipcode = response
+   
+  //    });
+
+  
+
 
   
  

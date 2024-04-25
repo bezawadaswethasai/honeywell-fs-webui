@@ -10,18 +10,18 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class HoneywellService {
-  private responseDataSubject = new BehaviorSubject<any>(null);
-  responseData$ = this.responseDataSubject.asObservable();
+private responseDataSubject = new BehaviorSubject<any>(null);
+responseData$ = this.responseDataSubject.asObservable();
  incidentTypeSelected = new EventEmitter<string>();
-  fireStation = new EventEmitter<boolean>();
+fireStation = new EventEmitter<boolean>();
 
   responseData: any;
 
 
   
-  private baseUrl = 'https://localhost:7094/api/Registration';
-  private mapserviceUrl = 'https://localhost:44388/api/GoogleMaps/GoogleMaps';
-  private riskserviceUrl ='https://localhost:44388/api/GoogleMaps/RiskScoreDetails'
+  private baseUrl = 'https://localhost:7094/api/Registration';//Registration
+  private mapserviceUrl = 'https://localhost:44388/api/GoogleMaps/GoogleMaps';//GMAP API
+  private zipcodeURL ='https://localhost:44388/api/GoogleMaps/RiskScoreDetails'//zipcode API
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -57,10 +57,15 @@ export class HoneywellService {
     return this.http.post<any>(this.mapserviceUrl, data);
   }
 
-  getRiskScore(data:any): Observable<any> {
-    
-    return this.http.post<any>(this.riskserviceUrl, data);
+  getZipRiskScore(selectedZipCodes:any): Observable<any> {
+    let ZipCode = selectedZipCodes.zipCode
+    const data={
+      ZipCode
+    };
+    console.log('getZipRiskScore',data)
+    return this.http.post<any>(this.zipcodeURL, data);
   }
+
   // Example method to post data to API
   postData(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/data`, data);
